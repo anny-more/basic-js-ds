@@ -66,43 +66,52 @@ module.exports = class BinarySearchTree {
     }
   }
 
-  remove(data) {
-    this.root1 = removeNode(this.root1, data);
-    function removeNode(node, data) {
+  remove(value) {
+    this.root = removeNode(this.root, value);
+
+    function removeNode(node, value) {
       if (!node) {
-        return null
-      } 
-      if (data < node.data) {
-        node.left = removeNode(node.left, data);
+        return null;
+      }
+
+      if (value < node.value) {
+        node.left = removeNode(node.left, value);
         return node;
-      } else if (data > node.data) {
-        node.rigth = removeNode(node.rigth, data);
+      } else if (node.value < value) {
+        node.right = removeNode(node.right, value);
         return node;
       } else {
-      if (!node.rigth && !node.left) {
-        return null
-      }
-      if (!node.left) {
-        node = node.rigth;
-        return node
-      }
-      if (!node.rigth) {
-        node = node.left;
-        return node
-      }
-      
-      let valueRigth = node.right;
-      while (valueRigth?.left) {
-        valueRigth = valueRigth.left;
-      }
-      
-      node.data = valueRigth.data;
+        // equal - should remove this item
+        if (!node.left && !node.right) {
+          // put null instead of item
+          return null;
+        }
 
-      node.right = removeNode(node.right, valueRigth.data);
+        if (!node.left) {
+          // set right child instead of item
+          node = node.right;
+          return node;
+        }
 
-      return node;
+        if (!node.right) {
+          // set left child instead of item
+          node = node.left;
+          return node;
+        }
+
+        // both children exists for this item
+        let minFromRight = node.right;
+        while (minFromRight.left) {
+          minFromRight = minFromRight.left;
+        }
+        node.value = minFromRight.value;
+
+        node.right = removeNode(node.right, minFromRight.value);
+
+        return node;
+      }
     }
-  }
+  
     
     
   }

@@ -28,7 +28,7 @@ module.exports = class BinarySearchTree {
       if (data < node.data) {
         node.left = addData(node.left, data)
       } else { 
-        node.rigth = addData(node.rigth, data)}
+        node.right = addData(node.right, data)}
       return node;
     }
   }
@@ -44,7 +44,7 @@ module.exports = class BinarySearchTree {
       }
       return data < node.data ? 
              hasData(node.left, data):
-             hasData(node.rigth, data);
+             hasData(node.right, data);
     }
   }
 
@@ -61,7 +61,7 @@ module.exports = class BinarySearchTree {
       if (data < node.data) {
         return findData(node.left, data)
       } else {
-        return findData(node.rigth, data)
+        return findData(node.right, data)
       }
     }
   }
@@ -126,8 +126,8 @@ module.exports = class BinarySearchTree {
     }
 
     let node = this.root1;
-    while (node.rigth) {
-      node = node.rigth;
+    while (node.right) {
+      node = node.right;
     }
 
     return node.data;
